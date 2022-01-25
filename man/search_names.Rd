@@ -17,7 +17,7 @@ Søk etter navn
 }
 \examples{
 \dontrun{
-#SÃ¸k etter navn i kolonnen for motparter i et FX-swapdatasett med navn "fx":
+#Søk etter navn i kolonnen for motparter i et FX-swapdatasett med navn "fx":
 search_names(v = fx$CounterPartyName, name = "chase")
 }
 }

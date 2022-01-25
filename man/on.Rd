@@ -43,7 +43,7 @@ Hent transaksjonsdata for usikrede overnattenlån
 #Hent ut data med standard-parametre. Normalt det man har mest bruk for
 overnight = on()
 
-#Hent ut data, med kun transaksjoner mellom rapportÃ¸rbanker, og nett transaksjoner
+#Hent ut data, med kun transaksjoner mellom rapportørbanker, og nett transaksjoner
 #kun lending-transaksjoner trekkes ut da. Dette er tilsvarende Nowa-datasett
 overnigth = on(counterparties = "reportingagents", netting = TRUE)
 

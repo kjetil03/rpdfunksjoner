@@ -82,7 +82,7 @@ Plot haircuts i repo-handler
 \examples{
 
 \dontrun{
-#Plot haircuts fordelt pÃ¥ rapportÃ¸rbank, med datasett med repo-data
+#Plot haircuts fordelt på rapportørbank, med datasett med repo-data
 # som heter repos, med stat som sikkerhet:
 
 #Hent repo-data med repo-funksjonen
@@ -92,8 +92,8 @@ repos <- repo()
 plot_repo_haircuts(repos)
 
 
-#Endre standardvalg. Velg Ã¥ plotte for OMF i stedet, velg kun datoer fra
-# 30. juni 2020, og sorter pÃ¥ lÃ¸petid i stedet. Velger da grouping = "tenor2":
+#Endre standardvalg. Velg å plotte for OMF i stedet, velg kun datoer fra
+# 30. juni 2020, og sorter på løpetid i stedet. Velger da grouping = "tenor2":
 plot_repo_haircuts(repos, start_date = "2020-06-30, grouping = "tenor2")
 
 

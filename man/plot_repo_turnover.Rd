@@ -73,13 +73,13 @@ Plot omsetning i repo
 }
 \examples{
 \dontrun{
-# Plot omsetning for alle rapporterende banker, alle motparter, fordelt etter lÃ¸petid,
-# med datasett med repo-data som heter "repos". NÃ¥r collateral ikke er valgt, plottes
+# Plot omsetning for alle rapporterende banker, alle motparter, fordelt etter løpetid,
+# med datasett med repo-data som heter "repos". Når collateral ikke er valgt, plottes
 # omsetning med stat som sikkerhet
 plot_repo_turnover(df = repos)
 # Styr hvilken bank man vil se p\u00e5 med parameteren 'reporting_banks':
 plot_repo_turnover(repos, reporting_banks = "Danske Bank")
-# Spesifisere hvilken type sikkerhet man vil se pÃ¥:
+# Spesifisere hvilken type sikkerhet man vil se på:
 plot_repo_turnover(fx,
 reporting_banks = c("Danske Bank"),
 collateral = "OMF")

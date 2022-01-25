@@ -69,7 +69,7 @@ Plot aggregert utestående i FX-swap
 \dontrun{
 Med default-verdier og datasett med fx-swap-data som heter "fx":
 p = plot_aggregate_fx_swap_outstanding(df = fx)
-Kun for Danske og DNB, utenlandske motparter, 1 og 3 mÃ¥neders lÃ¸petid:
+Kun for Danske og DNB, utenlandske motparter, 1 og 3 måneders løpetid:
 fx \%>\% plot_aggregate_fx_swap_outstanding(df = fx,
 reporting_banks = c("Danske Bank", "DNB Bank ASA"),
 tenors = c("1m", "3m"))

@@ -78,17 +78,17 @@ Plot omsetning i FX-swap
 }
 \examples{
 \dontrun{
-Plot omsetning for alle rapporterende banker, alle motparter, fordelt etter lÃ¸petid,
+Plot omsetning for alle rapporterende banker, alle motparter, fordelt etter løpetid,
 med datasett for fx-swap-data som heter "fx"
 plot_fx_swap_turnover(df = fx)
 Styr hvilken bank man vil se p\u00e5 med parameteren 'reporting_banks':
 plot_fx_swap_turnover(fx, reporting_banks = "Danske Bank")
-Spesifisere hvilke motparter man vil se pÃ¥:
+Spesifisere hvilke motparter man vil se på:
 plot_fx_swap_turnover(fx,
 reporting_banks = c("Danske Bank"),
 counterparty = "Svenska Handelsbanken")
-Man kan ogsÃ¥ snu det andre veien og spÃ¸rre om hvor mye
-en gitt motpart gjÃ¸r mot alle rapportÃ¸rer:
+Man kan også snu det andre veien og spørre om hvor mye
+en gitt motpart gjør mot alle rapportører:
 p <- plot_fx_swap_turnover(fx,
 reporting_banks = "all",
 counterparty = "MORGAN STANLEY & CO. INTERNATIONAL PLC")

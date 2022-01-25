@@ -76,7 +76,7 @@ Plot renter i usikrede handler
 \examples{
 
 \dontrun{
-#Plot renter fordelt pÃ¥ rapportÃ¸rbank, med datasett med usikrede
+#Plot renter fordelt på rapportørbank, med datasett med usikrede
 # transaksjoner som heter depos:
 
 #Hent data med deposit-funksjonen
@@ -86,8 +86,8 @@ depos <- deposits()
 plot_repo_rates(depos)
 
 
-#Endre standardvalg. Velg Ã¥ plotte kun omsetning mellom rapporÃ¸rbanker,
-velg kun datoer fra 1 september 2020, og sorter pÃ¥ rapportÃ¸rbank:
+#Endre standardvalg. Velg å plotte kun omsetning mellom rapporørbanker,
+velg kun datoer fra 1 september 2020, og sorter på rapportørbank:
 plot_unsecured_turnover(depos,
                         start_date = "2020-09-01",
                         reporting_banks = "all",

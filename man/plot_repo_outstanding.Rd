@@ -79,21 +79,21 @@ Plot Utestående i FX-swap
 }
 \examples{
 \dontrun{
-# UtestÃ¥ende i repo for DNB fordelt etter type sikkerhet mot alle motparter med
+# Utestående i repo for DNB fordelt etter type sikkerhet mot alle motparter med
 # datasett med repo-data som heter repos:
 plot_repo_outsanding(repos,
                      collateral_type = "all",
                      counterparty = "all" ,
                      grouping = "collateral_category")
-# Styr hvilken bank man ser pÃ¥ og velg utestÃ¥ende for repoer mot OMF, sortert etter
-# lÃ¸petid, :
+# Styr hvilken bank man ser på og velg utestående for repoer mot OMF, sortert etter
+# løpetid, :
 plot_repo_outstanding(repos,
                       reporting_banks = "Danske Bank",
                       collateral_type = "OMF",
                       grouping = "tenor2")
 
-# Styr hvilken bank man ser pÃ¥ og velg utestÃ¥ende for repoer mot OMF og Stat, og sorter
-# etter motpart i stedet, velg de 5 stÃ¸rste motpartene pÃ¥ inn- og utlÃ¥nssiden,
+# Styr hvilken bank man ser på og velg utestående for repoer mot OMF og Stat, og sorter
+# etter motpart i stedet, velg de 5 største motpartene på inn- og utlånssiden,
 # og trunker navn:
 plot_repo_outstanding(repos,
                       reporting_banks = "Danske Bank",

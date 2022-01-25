@@ -9,7 +9,7 @@
 #' @param maturitydate char. Navn på kolonnen som inneholder forfallsdato.
 #' @export
 #'
-#' @importFrom bizdays create.calendar bizdays
+#' @importFrom bizdays create.calendar bizdays adjust.previous
 #' @import magrittr
 #'
 #' @encoding UTF-8

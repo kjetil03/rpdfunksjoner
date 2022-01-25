@@ -70,7 +70,7 @@ Plot intradag-omsetning i FX-swapper
 \examples{
 \dontrun{
 
-#Plot omsetning etter lÃ¸petid:
+#Plot omsetning etter løpetid:
 plot_intraday_fx_swap_trades(fx,
                              start_date = "2020-11-11",
                              tenors = "all",

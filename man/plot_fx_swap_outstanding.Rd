@@ -79,16 +79,16 @@ Plot Utestående i FX-swap
 }
 \examples{
 \dontrun{
-#UtestÃ¥ende for DNB fordelt pÃ¥ lÃ¸petid
+#Utestående for DNB fordelt på løpetid
 p <- plot_fx_swap_outstanding(fx, reporting_banks = "DNB Bank ASA")
 p
-#UtestÃ¥ende for DNB fordelt pÃ¥ 5 stÃ¸rste motparter pÃ¥ inn- og utlÃ¥nssiden
+#Utestående for DNB fordelt på 5 største motparter på inn- og utlånssiden
 p <- plot_fx_swap_outstanding(fx, reporting_banks = "DNB Bank ASA",
                               grouping  = "CounterPartyName",
                               grouping_restriction = 5)
 p
-#UtestÃ¥ende for DNB fordelt pÃ¥ 5 stÃ¸rste motparter pÃ¥ inn- og
-#utlÃ¥nssiden for kun 3m-swapper:
+#Utestående for DNB fordelt på 5 største motparter på inn- og
+#utlånssiden for kun 3m-swapper:
 p <- plot_fx_swap_outstanding(fx, reporting_banks = "DNB Bank ASA",
                               tenors = "3m",
                               grouping  = "CounterPartyName",

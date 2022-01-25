@@ -80,19 +80,19 @@ Plot omsetning i usikrede lån (deposits)
 }
 \examples{
 \dontrun{
-#Plot omsetning for alle rapporterende banker, alle motparter, fordelt etter lÃ¸petid,
+#Plot omsetning for alle rapporterende banker, alle motparter, fordelt etter løpetid,
 #med datasett for deposit-data som heter "depos"
 plot_unsecured_turnover(df = depos)
 #Styr hvilken bank man vil se p\u00e5 med parameteren 'reporting_banks':
 plot_unsecured_turnover(depos, reporting_banks = "Danske Bank")
-#Spesifisere hvilke motparter man vil se pÃ¥:
+#Spesifisere hvilke motparter man vil se på:
 plot_unsecured_turnover(depos,
 reporting_banks = c("Danske Bank"),
 counterparty = "Svenska Handelsbanken")
-#Man kan ogsÃ¥ snu det andre veien og spÃ¸rre om hvor mye
-#en gitt motpart gjÃ¸r mot alle rapportÃ¸rer:
+#Man kan også snu det andre veien og spørre om hvor mye
+#en gitt motpart gjør mot alle rapportører:
 plot_unsecured_turnover(depos,
 reporting_banks = "all",
-counterparty = "Bank fÃ¼r Internationalen Zahlungsausgleich	")
+counterparty = "Bank für Internationalen Zahlungsausgleich	")
 }
 }

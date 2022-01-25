@@ -51,8 +51,8 @@ andre motparter vil samles opp som "Annen".
 Med default-verdier:
 df = outstanding_with_nice_dates(df)
 Med spesifisert grupperingsvariabel og grupperingsrestriksjon.
-Viser da omsetning fordelt pÃ¥ motpart for 5 motparter med mest
-omsetning pÃ¥ inn- og utlÃ¥nssiden
+Viser da omsetning fordelt på motpart for 5 motparter med mest
+omsetning på inn- og utlånssiden
 df = outstanding_with_nice_dates(df,
 grouping_variable = "CounterPartyName",
 grouping_restriction = 5)

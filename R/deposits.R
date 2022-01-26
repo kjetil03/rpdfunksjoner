@@ -48,7 +48,7 @@ deposits <- function(start_date = "2019-11-30",
         ---__join_string__
         WHERE NbMsgType = 1
         AND RptdTxSts IN ('NEWT', 'AMND', 'CORR')
-        --AND InstrmTp = 'DPST'
+        AND InstrmTp = 'DPST'
         AND NbStatus in (0, 2)
         AND CONVERT(DATE, TradDt) >= 'start_date'
         __counterparties__

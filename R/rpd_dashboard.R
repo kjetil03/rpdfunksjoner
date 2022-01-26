@@ -131,6 +131,8 @@ rpd_dashboard <- function(load_source_data = TRUE) {
 
   header <- dashboardHeader(title = "Data fra RPD")
 
+  nb_colors <- nomafunctions::nb_colors
+
 
   ##### Oppsett av sidebar ####
   sidebar <- dashboardSidebar(
@@ -395,6 +397,15 @@ rpd_dashboard <- function(load_source_data = TRUE) {
                           downloadButton(outputId = "download_fx_aggregate_outstanding_data", label = "Last ned data til Excel"),
                           downloadButton(outputId = "download_fx_aggregate_outstanding_plot", label = "Last ned html-graf")
                  ),
+                 tabPanel("Summert utestående",
+                          dateRangeInput(inputId = "fx_summed_outstanding_date",
+                                         label = "Velg datoer",
+                                         start = "2020-03-01",
+                                         end = as.character(Sys.Date())),
+                          plotlyOutput("p_fx_summed_outstanding",width = "auto", height = "600px")
+
+                 ),
+
                  #### Tab med graf for intradag omsetning ####
                  tabPanel("Intradag omsetning",
                           ##### dateRangeInput med valg av datoer for plotting #####
@@ -1152,6 +1163,34 @@ rpd_dashboard <- function(load_source_data = TRUE) {
         saveWidget(as_widget(fx_aggregate_outstanding()[["p"]]), file, selfcontained = TRUE)
       }
     )
+
+
+
+
+    fx_summed_outstanding <- reactive({
+      agg_plot(fx,
+                                         start_date = input$fx_summed_outstanding_date[1],
+                                         end_date = input$fx_summed_outstanding_date[2],
+                                         reporting_banks = fx_options$reporters(),
+                                         #input$fx_turnover_reporting_agent,
+                                         #return_data = TRUE,
+                                         counterparty = fx_options$counters(),
+                                         currency = fx_options$currency(),
+                                         tenors = fx_options[["tenors"]]()
+                                         # title = TRUE,
+                                         # subtitle = TRUE,
+                                         # title_text = fx_options$plot_title(),
+                                         # subtitle_text = fx_options$plot_subtitle()
+      )
+
+    })
+
+    output$p_fx_summed_outstanding <- renderPlotly({
+
+      fx_summed_outstanding()[["p"]]
+
+    })
+
 
     #### Intraday turnover plot og data ######
     # Sett opp liste med plot og data basert på valg #

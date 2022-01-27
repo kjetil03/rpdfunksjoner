@@ -290,6 +290,11 @@ rpd_dashboard <- function(load_source_data = TRUE) {
                         multiple = TRUE,
                         selected = fx_tenors),
 
+            checkboxInput(inputId = "fx_group_forwards",
+                               label = "Grupper forward løpetider",
+                               value = TRUE),
+
+
             ##### dropdown-meny for valg av valuta      ####
             pickerInput(inputId = "fx_plot_currency",
                         label = "Valuta",
@@ -401,8 +406,8 @@ rpd_dashboard <- function(load_source_data = TRUE) {
                           dateRangeInput(inputId = "fx_summed_outstanding_date",
                                          label = "Velg datoer",
                                          start = "2020-03-01",
-                                         end = as.character(Sys.Date())),
-                          plotlyOutput("p_fx_summed_outstanding",width = "auto", height = "600px")
+                                         end = as.character(Sys.Date()-1)),
+                          plotlyOutput("p_fx_summed_outstanding",width = "auto", height = "700px")
 
                  ),
 
@@ -964,13 +969,25 @@ rpd_dashboard <- function(load_source_data = TRUE) {
 
     })
 
+    fx_filtered = reactive({
+
+
+      if(input$fx_group_forwards)  {
+
+        fx %>% mutate(tenor = as.character(tenor),
+                      tenor = if_else(grepl("F",tenor), "Forward start", tenor),
+                      tenor = factor(tenor, levels = c("ON", "TN", "SN", "1w", "2w", "3w", "1m", "2m", "3m", "4m", "5m", "6m", ">6m", "Forward start", "Other")))
+      } else
+        fx
+    })
+
     #### FX-turnover plot og data. ####
     #Kjører først kommandoen plot_fx_swap_turnover med return_data = TRUE
     #Output blir da en liste med to elementer, plot med navn "p" og datasett
     #med navn df. Plot-output blir da fx_turnover()[["p]] (Husk reactive-klammer),
     #mens datasett blir fx_turnover()[["df"]]
     fx_turnover <- reactive({
-      plot_fx_swap_turnover(fx,
+      plot_fx_swap_turnover(fx_filtered(),
                             start_date = input$fx_turnover_date[1],
                             end_date = input$fx_turnover_date[2],
                             reporting_banks = fx_options$reporters(),
@@ -1040,7 +1057,7 @@ rpd_dashboard <- function(load_source_data = TRUE) {
     #### FX swap outstanding plot og data ####
     #Sett opp liste med plot og data basert på valg-
     fx_outstanding <- reactive({
-      plot_fx_swap_outstanding(fx,
+      plot_fx_swap_outstanding(fx_filtered,
                                start_date = input$fx_outstanding_date[1],
                                end_date = input$fx_outstanding_date[2],
                                reporting_banks = fx_options$reporters(),
@@ -1110,7 +1127,7 @@ rpd_dashboard <- function(load_source_data = TRUE) {
     #### Aggregate FX-swap outstanding plot og data ####
     # Sett opp liste med plot og data basert på valg
     fx_aggregate_outstanding <- reactive({
-      plot_aggregate_fx_swap_outstanding(fx,
+      plot_aggregate_fx_swap_outstanding(fx_filtered,
                                          start_date = input$fx_aggregate_outstanding_date[1],
                                          end_date = input$fx_aggregate_outstanding_date[2],
                                          reporting_banks = fx_options$reporters(),
@@ -1168,20 +1185,67 @@ rpd_dashboard <- function(load_source_data = TRUE) {
 
 
     fx_summed_outstanding <- reactive({
-      agg_plot(fx,
-                                         start_date = input$fx_summed_outstanding_date[1],
-                                         end_date = input$fx_summed_outstanding_date[2],
-                                         reporting_banks = fx_options$reporters(),
-                                         #input$fx_turnover_reporting_agent,
-                                         #return_data = TRUE,
-                                         counterparty = fx_options$counters(),
-                                         currency = fx_options$currency(),
-                                         tenors = fx_options[["tenors"]]()
-                                         # title = TRUE,
-                                         # subtitle = TRUE,
-                                         # title_text = fx_options$plot_title(),
-                                         # subtitle_text = fx_options$plot_subtitle()
-      )
+
+
+      agg_plot(fx_filtered(),
+                          start_date = input$fx_summed_outstanding_date[1],
+                          end_date = input$fx_summed_outstanding_date[2],
+                          reporting_banks = fx_options$reporters(),
+                          #input$fx_turnover_reporting_agent,
+                          #return_data = TRUE,
+                          counterparty = fx_options$counters(),
+                          currency = fx_options$currency(),
+                          tenors = fx_options[["tenors"]]()
+                          # title = TRUE,
+                          # subtitle = TRUE,
+                          # title_text = fx_options$plot_title(),
+                          # subtitle_text = fx_options$plot_subtitle()
+                 )
+
+
+      # if(input$fx_group_forwards)  {
+      #
+      #   fx %>% mutate(tenor = as.character(tenor),
+      #                 tenor = if_else(grepl("F",tenor), "Forward start", tenor),
+      #                 tenor = factor(tenor, levels = c("ON", "TN", "SN", "1w", "2w", "3w", "1m", "2m", "3m", "4m", "5m", "6m", ">6m", "Forward start", "Other"))) %>%
+      #     agg_plot(start_date = input$fx_summed_outstanding_date[1],
+      #              end_date = input$fx_summed_outstanding_date[2],
+      #              reporting_banks = fx_options$reporters(),
+      #              #input$fx_turnover_reporting_agent,
+      #              #return_data = TRUE,
+      #              counterparty = fx_options$counters(),
+      #              currency = fx_options$currency(),
+      #              tenors = fx_options[["tenors"]]()
+      #              # title = TRUE,
+      #              # subtitle = TRUE,
+      #              # title_text = fx_options$plot_title(),
+      #              # subtitle_text = fx_options$plot_subtitle()
+      #
+      #
+      #
+      #     )
+      #
+      # } else {
+      #
+      #   agg_plot(fx,
+      #            start_date = input$fx_summed_outstanding_date[1],
+      #            end_date = input$fx_summed_outstanding_date[2],
+      #            reporting_banks = fx_options$reporters(),
+      #            #input$fx_turnover_reporting_agent,
+      #            #return_data = TRUE,
+      #            counterparty = fx_options$counters(),
+      #            currency = fx_options$currency(),
+      #            tenors = fx_options[["tenors"]]()
+      #            # title = TRUE,
+      #            # subtitle = TRUE,
+      #            # title_text = fx_options$plot_title(),
+      #            # subtitle_text = fx_options$plot_subtitle()
+      #   )
+      #
+      #
+      # }
+
+
 
     })
 
@@ -1195,7 +1259,7 @@ rpd_dashboard <- function(load_source_data = TRUE) {
     #### Intraday turnover plot og data ######
     # Sett opp liste med plot og data basert på valg #
     fx_intraday_turnover <- reactive({
-      plot_intraday_fx_swap_trades(fx,
+      plot_intraday_fx_swap_trades(fx_filtered,
                                    start_date = input$fx_intraday_turnover_date[1],
                                    end_date = input$fx_intraday_turnover_date[2],
                                    reporting_banks = fx_options$reporters(),

@@ -1,6 +1,3 @@
-
-
-
 #' Plot aggregated fx swap data
 #'
 #' @param df Data frame med data som skal plottes
@@ -46,7 +43,7 @@ agg_plot = function(df,
   if(all(tenors == "all")) {
     tenors = levels(df$tenor)
   } else {
-    tenors = tenors
+    tenors = c(tenors, "Forward start")
   }
 
   if(all(currency == "all")) {

@@ -407,7 +407,13 @@ rpd_dashboard <- function(load_source_data = TRUE) {
                                          label = "Velg datoer",
                                          start = "2020-03-01",
                                          end = as.character(Sys.Date()-1)),
-                          plotlyOutput("p_fx_summed_outstanding",width = "auto", height = "700px")
+                          pickerInput(inputId = "fx_summed_series",
+                                      label = "Velg type",
+                                      choices = c("Netto" = "netto",
+                                                  "Innlån" = "innlan",
+                                                  "Utlan" = "utlan"),
+                                      selected = "netto"),
+                          plotlyOutput("p_fx_summed_outstanding",width = "auto", height = "600px")
 
                  ),
 
@@ -972,6 +978,8 @@ rpd_dashboard <- function(load_source_data = TRUE) {
     fx_filtered = reactive({
 
 
+      fx <- fx %>% filter(!is.na(CounterPartyName))
+
       if(input$fx_group_forwards)  {
 
         fx %>% mutate(tenor = as.character(tenor),
@@ -1057,7 +1065,7 @@ rpd_dashboard <- function(load_source_data = TRUE) {
     #### FX swap outstanding plot og data ####
     #Sett opp liste med plot og data basert på valg-
     fx_outstanding <- reactive({
-      plot_fx_swap_outstanding(fx_filtered,
+      plot_fx_swap_outstanding(fx_filtered(),
                                start_date = input$fx_outstanding_date[1],
                                end_date = input$fx_outstanding_date[2],
                                reporting_banks = fx_options$reporters(),
@@ -1127,7 +1135,7 @@ rpd_dashboard <- function(load_source_data = TRUE) {
     #### Aggregate FX-swap outstanding plot og data ####
     # Sett opp liste med plot og data basert på valg
     fx_aggregate_outstanding <- reactive({
-      plot_aggregate_fx_swap_outstanding(fx_filtered,
+      plot_aggregate_fx_swap_outstanding(fx_filtered(),
                                          start_date = input$fx_aggregate_outstanding_date[1],
                                          end_date = input$fx_aggregate_outstanding_date[2],
                                          reporting_banks = fx_options$reporters(),
@@ -1188,11 +1196,11 @@ rpd_dashboard <- function(load_source_data = TRUE) {
 
 
       agg_plot(fx_filtered(),
+               series = input$fx_summed_series,
                           start_date = input$fx_summed_outstanding_date[1],
                           end_date = input$fx_summed_outstanding_date[2],
                           reporting_banks = fx_options$reporters(),
-                          #input$fx_turnover_reporting_agent,
-                          #return_data = TRUE,
+                          grouping = input$fx_grouping,
                           counterparty = fx_options$counters(),
                           currency = fx_options$currency(),
                           tenors = fx_options[["tenors"]]()

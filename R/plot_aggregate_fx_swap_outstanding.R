@@ -74,7 +74,7 @@ plot_aggregate_fx_swap_outstanding <- function(df,
   if(all(tenors == "all")) {
     t = levels(df$tenor)
   } else {
-    t = tenors
+    t = c(tenors, "Forward start")
   }
 
   if(all(reporting_banks == "all")) {

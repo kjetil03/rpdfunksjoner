@@ -88,7 +88,7 @@ plot_intraday_fx_swap_trades <- function(df,
   if(all(tenors == "all")) {
     t = levels(df$tenor)
   } else {
-    t = tenors
+    t = c(tenors, "Forward start")
   }
 
   if(all(reporting_banks == "all")) {

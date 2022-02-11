@@ -89,7 +89,7 @@ plot_fx_swap_outstanding <- function(df,
   if(all(tenors == "all")) {
     tenors = levels(df$tenor)
   } else {
-    tenors = tenors
+    tenors = c(tenors, "Forward start")
   }
 
   if(all(currency == "all")) {

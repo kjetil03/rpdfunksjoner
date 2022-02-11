@@ -1267,7 +1267,7 @@ rpd_dashboard <- function(load_source_data = TRUE) {
     #### Intraday turnover plot og data ######
     # Sett opp liste med plot og data basert på valg #
     fx_intraday_turnover <- reactive({
-      plot_intraday_fx_swap_trades(fx_filtered,
+      plot_intraday_fx_swap_trades(fx_filtered(),
                                    start_date = input$fx_intraday_turnover_date[1],
                                    end_date = input$fx_intraday_turnover_date[2],
                                    reporting_banks = fx_options$reporters(),
